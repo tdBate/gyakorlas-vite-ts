@@ -47,7 +47,18 @@ async function loadData() {
   printData();
 };
 
+async function newData() {
+  const name:HTMLInputElement = document.getElementById("inpName") as HTMLInputElement;
+  const score:HTMLInputElement = document.getElementById("inpScore") as HTMLInputElement;
+  const date:HTMLInputElement = document.getElementById("inpDate") as HTMLInputElement;
+  const retired:HTMLInputElement = document.getElementById("inpRetired") as HTMLInputElement;
+
+  const sportolo:sportolo = {name:name.value, score:parseInt(score.value), date: new Date(date.value), retired:retired.checked};
+}
+
 function init() {
+  (document.getElementById("btnSend") as HTMLButtonElement).addEventListener("click", newData);
+
   loadData();
 }
 

@@ -8,16 +8,25 @@
 </head>
 
 <body>
-  <div>
-    <Label>Név:</Label><input id="inpName" type="text"><br>
-    <Label>Score:</Label><input id="inpScore" type="number"><br>
-    <Label>Dátum:</Label><input id="inpDate" type="date"><br>
-    <Label>Nyugdíjas-e:</Label><input id="inpRetired" type="checkbox"><br>
-    <button id="btnSend">Elkdüld</button>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div style="margin-bottom: 1rem;">
+          <h1>Sportolók</h1>
+          <Label>Név:</Label><input id="inpName" type="text"><br>
+          <Label>Score:</Label><input id="inpScore" type="number"><br>
+          <Label>Dátum:</Label><input id="inpDate" type="date"><br>
+          <Label>Nyugdíjas-e:</Label><input id="inpRetired" type="checkbox"><br>
+          <button class="btn btn-primary" id="btnSend">Elkdüld</button>
+        </div>
+
+        <script type="module" src="./src/main.ts"></script>
+        <table class="w-100 table" id="table"></table>
+      </div>
+    </div>
   </div>
 
-  <script type="module" src="./src/main.ts"></script>
-  <table id="table"></table>
 </body>
 
 </html>

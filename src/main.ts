@@ -1,3 +1,6 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 import type { Sportolo } from './Sportolo';
 import './style.css';
 
@@ -11,6 +14,7 @@ function printData() {
     <th>Score</th>
     <th>Date</th>
     <th>Nyugdíjas</th>
+    <th></th>
   </tr>`;
 
 
@@ -34,6 +38,7 @@ function printData() {
     //delete
     const deleteCel: HTMLTableCellElement = document.createElement("td");
     const deleteBtn: HTMLButtonElement = document.createElement("button");
+    deleteBtn.className= "btn btn-warning"
     deleteBtn.textContent = "Törlés";
     deleteBtn.onclick = () => {
       deleteAt(item.id);

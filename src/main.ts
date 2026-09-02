@@ -15,7 +15,7 @@ function printData() {
 
 
   for (let i = 0; i < data.length; i++) {
-    const item:Sportolo = data[i];
+    const item: Sportolo = data[i];
 
     const row: HTMLTableRowElement = document.createElement("tr");
 
@@ -29,16 +29,44 @@ function printData() {
     dateCel.innerText = new Date(item.date).toLocaleDateString('en-GB');
 
     const retiredCel: HTMLTableCellElement = document.createElement("td");
-    retiredCel.innerText = (item.retired)? "igen":"nem";
+    retiredCel.innerText = (item.retired) ? "igen" : "nem";
+
+    //delete
+    const deleteCel: HTMLTableCellElement = document.createElement("td");
+    const deleteBtn: HTMLButtonElement = document.createElement("button");
+    deleteBtn.textContent = "Törlés";
+    deleteBtn.onclick = () => {
+      deleteAt(item.id);
+    };
+
+
+    deleteCel.appendChild(deleteBtn);
 
     row.appendChild(nameCel);
     row.appendChild(scoreCel);
     row.appendChild(dateCel);
     row.appendChild(retiredCel);
+    row.appendChild(deleteBtn);
 
     table.appendChild(row);
   }
 
+}
+
+async function deleteAt(index: number) {
+  const deleteArrayIndex:number = data.findIndex(item => item.id == index);
+  
+  data.splice(deleteArrayIndex,1);
+  printData();
+
+  const response:Response = await fetch(`${URL_LINK}/${(index)}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+
+  if (response.ok) {console.log("DELETE succeful");}
 }
 
 async function loadData() {
@@ -48,24 +76,24 @@ async function loadData() {
 };
 
 async function newData() {
-  const name:HTMLInputElement = document.getElementById("inpName") as HTMLInputElement;
-  const score:HTMLInputElement = document.getElementById("inpScore") as HTMLInputElement;
-  const date:HTMLInputElement = document.getElementById("inpDate") as HTMLInputElement;
-  const retired:HTMLInputElement = document.getElementById("inpRetired") as HTMLInputElement;
+  const name: HTMLInputElement = document.getElementById("inpName") as HTMLInputElement;
+  const score: HTMLInputElement = document.getElementById("inpScore") as HTMLInputElement;
+  const date: HTMLInputElement = document.getElementById("inpDate") as HTMLInputElement;
+  const retired: HTMLInputElement = document.getElementById("inpRetired") as HTMLInputElement;
 
-  const s1:Sportolo = {name:name.value, score:parseInt(score.value), date: new Date(date.value), retired:retired.checked};
+  const s1: Sportolo = {id: (data[data.length-1].id+1), name: name.value, score: parseInt(score.value), date: new Date(date.value), retired: retired.checked };
   data.push(s1);
   printData();
 
   const response = await fetch(URL_LINK, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json' 
-      },
-      body: JSON.stringify(s1) 
-    });
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(s1)
+  });
 
-  if (response.ok) {console.log("POST succesful");}
+  if (response.ok) { console.log("POST succesful"); }
 }
 
 function init() {

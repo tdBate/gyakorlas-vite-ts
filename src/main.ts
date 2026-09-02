@@ -26,7 +26,7 @@ function printData() {
     scoreCel.innerText = item.score.toString();
 
     const dateCel: HTMLTableCellElement = document.createElement("td");
-    dateCel.innerText = item.date.toString();
+    dateCel.innerText = new Date(item.date).toLocaleDateString('en-GB');
 
     const retiredCel: HTMLTableCellElement = document.createElement("td");
     retiredCel.innerText = (item.retired)? "igen":"nem";
@@ -53,7 +53,19 @@ async function newData() {
   const date:HTMLInputElement = document.getElementById("inpDate") as HTMLInputElement;
   const retired:HTMLInputElement = document.getElementById("inpRetired") as HTMLInputElement;
 
-  const sportolo:sportolo = {name:name.value, score:parseInt(score.value), date: new Date(date.value), retired:retired.checked};
+  const s1:sportolo = {name:name.value, score:parseInt(score.value), date: new Date(date.value), retired:retired.checked};
+  data.push(s1);
+  printData();
+
+  const response = await fetch(URL_LINK, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify(s1) 
+    });
+
+  if (response.ok) {console.log("POST succesful");}
 }
 
 function init() {

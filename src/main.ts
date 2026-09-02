@@ -24,7 +24,12 @@ function printData() {
     const row: HTMLTableRowElement = document.createElement("tr");
 
     const nameCel: HTMLTableCellElement = document.createElement("td");
-    nameCel.innerText = item.name;
+    if (item.name) {
+      nameCel.innerText = item.name;
+    } else {
+      nameCel.style.background = "gray";
+    }
+    
 
     const scoreCel: HTMLTableCellElement = document.createElement("td");
     scoreCel.innerText = item.score.toString();

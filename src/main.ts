@@ -104,6 +104,11 @@ async function newData() {
   });
 
   if (response.ok) { console.log("POST succesful"); }
+
+  name.value = "";
+  score.value = "";
+  retired.checked = false;
+
 }
 
 function init() {

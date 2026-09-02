@@ -1,4 +1,4 @@
-export interface sportolo {
+export interface Sportolo {
     name:string,
     score:number,
     date:Date,

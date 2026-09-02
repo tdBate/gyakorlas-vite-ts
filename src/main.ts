@@ -1,8 +1,8 @@
-import type { sportolo } from './sportolo';
+import type { Sportolo } from './Sportolo';
 import './style.css';
 
 const URL_LINK: string = "https://retoolapi.dev/4vkBhL/data";
-let data: sportolo[];
+let data: Sportolo[];
 
 function printData() {
   const table: HTMLTableElement = (document.getElementById("table") as HTMLTableElement);
@@ -15,7 +15,7 @@ function printData() {
 
 
   for (let i = 0; i < data.length; i++) {
-    const item:sportolo = data[i];
+    const item:Sportolo = data[i];
 
     const row: HTMLTableRowElement = document.createElement("tr");
 
@@ -43,7 +43,7 @@ function printData() {
 
 async function loadData() {
   const response: Response = await fetch(URL_LINK);
-  data = (await JSON.parse(await response.text())) as sportolo[];
+  data = (await JSON.parse(await response.text())) as Sportolo[];
   printData();
 };
 
@@ -53,7 +53,7 @@ async function newData() {
   const date:HTMLInputElement = document.getElementById("inpDate") as HTMLInputElement;
   const retired:HTMLInputElement = document.getElementById("inpRetired") as HTMLInputElement;
 
-  const s1:sportolo = {name:name.value, score:parseInt(score.value), date: new Date(date.value), retired:retired.checked};
+  const s1:Sportolo = {name:name.value, score:parseInt(score.value), date: new Date(date.value), retired:retired.checked};
   data.push(s1);
   printData();
 
